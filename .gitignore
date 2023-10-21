@@ -1,0 +1,12 @@
+*
+!go.sum
+!.gitignore
+!go.mod
+!*.go
+!*.html
+!*.json
+!*.md
+!*.ttf
+!*.png
+!*/
+.vscode
