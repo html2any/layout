@@ -17,6 +17,7 @@ func (r Rect) String() string {
 }
 
 type Render interface {
+	Overide(block *Block, border, background, content Rect) bool
 	Text(rect *Rect, text string, family string, style string, size int, rgba color.RGBA) error
 	Fill(rgba color.RGBA, rect *Rect)
 	Image(img string, rect *Rect) error

@@ -4,8 +4,6 @@ import (
 	"errors"
 	"image/color"
 	"log/slog"
-
-	"github.com/html2any/layout/fonts"
 )
 
 const (
@@ -29,9 +27,9 @@ func SplitPages(c *Block, page_height float64) (pages []*Block, err error) {
 	return
 }
 
-func CacuPages(c *Block, width float64, gFamily string, spliter fonts.TextSpliter) (height float64, pages []*Block, err error) {
+func CacuPages(c *Block, width float64, gFamily string, ilayout ILayout) (height float64, pages []*Block, err error) {
 	preSetHeight := c.Height
-	if _, err := CacuHeight(c, width, gFamily, spliter); err != nil {
+	if _, err := CacuHeight(c, width, gFamily, ilayout); err != nil {
 		return 0, nil, err
 	}
 	if preSetHeight <= 0 {
@@ -42,26 +40,29 @@ func CacuPages(c *Block, width float64, gFamily string, spliter fonts.TextSplite
 	return
 }
 
-func CacuHeight(c *Block, width float64, gFamily string, spliter fonts.TextSpliter) (float64, error) {
+func CacuHeight(c *Block, width float64, gFamily string, ilayout ILayout) (float64, error) {
 	c.Width = width
 	c.FontFamily = gFamily
 	c.FontColor = color.RGBA{0, 0, 0, 255}
 	c.ParseStyle(c.Class, nil)
-	if err := cacuHeight(c, spliter); err != nil {
+	if err := cacuHeight(c, ilayout); err != nil {
 		return 0, err
 	} else {
 		return c.Height, nil
 	}
 }
 
-func cacuHeight(c *Block, spliter fonts.TextSpliter) error {
+func cacuHeight(c *Block, ilayout ILayout) error {
+	if ilayout.Overide(c) {
+		return nil
+	}
 	for _, child := range c.Children {
 		child.ParseStyle(child.Class, &c.Style)
 		// child.Path = c.Path + "/" + strconv.Itoa(i)
 	}
 	updateChildrenWidth(c)
 	if len(c.Contents) > 0 { //leaf text node
-		if content_height, err := cacuContentsHeight(c, spliter); err != nil {
+		if content_height, err := cacuContentsHeight(c, ilayout); err != nil {
 			return err
 		} else {
 			c.Height = content_height
@@ -71,7 +72,7 @@ func cacuHeight(c *Block, spliter fonts.TextSpliter) error {
 	}
 	//children start
 	for _, child := range c.Children {
-		if err := cacuHeight(child, spliter); err != nil {
+		if err := cacuHeight(child, ilayout); err != nil {
 			return err
 		}
 	}
@@ -126,12 +127,12 @@ func updateChildrenWidth(c *Block) error {
 	return nil
 }
 
-func cacuContentsHeight(c *Block, spliter fonts.TextSpliter) (height float64, err error) {
+func cacuContentsHeight(c *Block, ilayout ILayout) (height float64, err error) {
 	contentWidth := c.Width - c.PaddingLeft - c.PaddingRight - c.BorderLeft - c.BorderRight - c.MarginLeft - c.MarginRight
 	parsed_content := make([]string, 0)
 	parsed_content_width := make([]float64, 0)
 	for _, line := range c.Contents {
-		if lines, lineWidth, err := spliter.SplitLines(contentWidth, line, c.FontFamily, float64(c.FontSize), c.FontStyle); err != nil {
+		if lines, lineWidth, err := ilayout.SplitLines(contentWidth, line, c.FontFamily, float64(c.FontSize), c.FontStyle); err != nil {
 			return 0, err
 		} else {
 			parsed_content = append(parsed_content, lines...)

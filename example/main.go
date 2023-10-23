@@ -53,17 +53,19 @@ func main() {
 	format := os.Args[1]
 	// loadFonts and CacheAll
 	fontcache := loadFonts()
-	textspliter := fonts.NewSFNT(fontcache)
-	if _, err := textspliter.CacheAll(); err != nil {
+	sfnt := fonts.NewSFNT(fontcache)
+	if _, err := sfnt.CacheAll(); err != nil {
 		panic(err)
 	}
+	//init caculator
+
 	// init render
 	render := initRender(format, fontcache)
 
 	// load html
 	root := parseHTML2Block()
 
-	_, err := layout.CacuHeight(root, layout.A4_Width, "NotoSansSC", textspliter)
+	_, err := layout.CacuHeight(root, layout.A4_Width, "NotoSansSC", NewLayout(sfnt))
 	if err != nil {
 		panic(err)
 	}

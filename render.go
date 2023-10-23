@@ -6,6 +6,9 @@ func addY(rect Rect, top float64) *Rect {
 func RenderTo(c *Block, render Render, from_x, from_y float64) (Rect, error) {
 	border, background, content := c.cacuRect(from_x, from_y)
 	rbackground := addY(background, c.Top)
+	if render.Overide(c, border, *rbackground, content) {
+		return Rect{X: from_x, Y: from_y, W: float64(c.Width), H: c.Height}, nil
+	}
 	if c.parent != nil && c.BackgroundColor != c.parent.BackgroundColor && c.BackgroundColor.A != 0 {
 		render.Fill(c.BackgroundColor, rbackground)
 	} else if c.parent == nil {

@@ -22,6 +22,10 @@ func (p *TextRender) GetData() []byte {
 	return p.buf.Bytes()
 }
 
+func (p *TextRender) Overide(block *layout.Block, border, background, content layout.Rect) bool {
+	return false
+}
+
 func (p *TextRender) Text(rect *layout.Rect, text string, family string, style string, size int, rgba color.RGBA) error {
 	p.buf.WriteString("DrawText=>" + rect.String() + ",Family:" + family + ",Style:" + style + ",Size:" + strconv.Itoa(size) + ",Color" + layout.RGBA2Hex(rgba) + ",Text:" + text + "\n")
 	return nil

@@ -2,10 +2,6 @@ package fonts
 
 type Int26_6 int32
 
-type TextSpliter interface {
-	SplitLines(width float64, s string, family string, size float64, style string) (lines []string, line_widths []float64, err error)
-}
-
 // SplitLines: split string to lines with specific width
 // func (f *Faces) SplitLines(width float64, s string, family string, size float64, style string) (lines []string, line_widths []float64, err error) {
 // 	face, err := f.GetFace(family, size, FontStyle(style))

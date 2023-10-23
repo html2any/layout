@@ -40,6 +40,10 @@ func (p *PdfRender) GetData() []byte {
 	return p.pdf.GetBytesPdf()
 }
 
+func (p *PdfRender) Overide(block *layout.Block, border, background, content layout.Rect) bool {
+	return false
+}
+
 func (p *PdfRender) Text(rect *layout.Rect, text string, family string, style string, size int, rgba color.RGBA) error {
 	if style == "bold" {
 		style = "B"

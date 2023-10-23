@@ -24,7 +24,7 @@ type Block struct {
 	g             *block_global `json:"-"`
 	parent        *Block        `json:"-"`
 	contentsWidth []float64     `json:"-"`
-	id            string        `json:"-"`
+	Id            string        `json:"-"`
 }
 
 func NewBlock(cssMap *map[string]string) *Block {
@@ -42,16 +42,16 @@ func (t *Block) SetTagName(tagname string) parser.IHtmlTag {
 	t.Tag = tagname
 	t.Children = make([]*Block, 0)
 
-	if t.parent != nil && len(t.parent.id) > 0 {
-		t.id = t.parent.id
+	if t.parent != nil && len(t.parent.Id) > 0 {
+		t.Id = t.parent.Id
 	}
 
 	if t.g.cssMap != nil {
 		if style, ok := (*t.g.cssMap)[tagname]; ok {
 			t.Class = t.Class + ";" + style
 		}
-		if len(t.id) > 0 { //support #id>td style find
-			if style, ok := (*t.g.cssMap)["#"+t.id+">"+tagname]; ok {
+		if len(t.Id) > 0 { //support #id>td style find
+			if style, ok := (*t.g.cssMap)["#"+t.Id+">"+tagname]; ok {
 				t.Class = t.Class + ";" + style
 			}
 		}
@@ -83,7 +83,7 @@ func (t *Block) SetAttr(attr string, value string) parser.IHtmlTag {
 		t.Src = strings.TrimSpace(value)
 	} else if attr == "id" {
 		t.g.idMap[value] = t
-		t.id = value
+		t.Id = value
 		if t.g.cssMap != nil {
 			if style, ok := (*t.g.cssMap)["#"+value]; ok {
 				t.Class = t.Class + ";" + style

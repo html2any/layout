@@ -111,6 +111,10 @@ func (p *ImageRender) transformRect(rect *layout.Rect) {
 	rect.W = rect.W * scale
 	rect.H = rect.H * scale
 }
+
+func (p *ImageRender) Overide(block *layout.Block, border, background, content layout.Rect) bool {
+	return false
+}
 func (p *ImageRender) Text(rect *layout.Rect, text string, family string, style string, size int, rgba color.RGBA) error {
 	p.transformRect(rect)
 	fstyle := canvas.FontRegular
