@@ -121,7 +121,7 @@ border-[top|right|bottom|left]-style
 1. Html parser is faster than `json.Unmarshal`
 2. Recursive calculation is almost the same as stack. I chose to use recursion, which is better understood.
 3. The calculation of text lines will take some time.
-4.Rendering to pdf or image is fast enough
+4. Rendering to pdf or image is fast enough
 5. The most expensive is encoding to pdf or png
 
 ## Contributing
