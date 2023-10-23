@@ -20,6 +20,9 @@ Follow these instructions to use the project:
 5. Set Width and Layout each element,You will get then result height.
 6. RenderTo a file 
 
+### Demo Result
+![Screenshot](example/out.png)
+
 ### Write HTML File
 ```html
 <div style="font-size:12px;margin:5px 50px; height:700px; top:70px;background-color:#f5f4d8">
@@ -86,9 +89,6 @@ func main() {
 	}
 }
 ```
-
-### Demo Result
-![Screenshot](example/out.png)
 
 ## Css support list
 ```css

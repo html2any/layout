@@ -72,5 +72,9 @@ func main() {
 		layout.RenderTo(root, render, 0, 0)
 		out := render.GetData()
 		os.WriteFile("out.png", out, 0644)
+	} else if format == "txt" {
+		layout.RenderTo(root, render, 0, 0)
+		out := render.GetData()
+		os.WriteFile("out.txt", out, 0644)
 	}
 }

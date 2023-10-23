@@ -133,7 +133,7 @@ func (p *ImageRender) Text(rect *layout.Rect, text string, family string, style 
 
 func (p *ImageRender) Fill(rgba color.RGBA, rect *layout.Rect) {
 	p.transformRect(rect)
-	p.cctx.SetStrokeColor(canvas.Transparent)
+	p.cctx.SetStrokeColor(rgba)
 	p.cctx.SetFillColor(rgba)
 	p.cctx.DrawPath(rect.X, rect.Y, canvas.Rectangle(rect.W, rect.H))
 }

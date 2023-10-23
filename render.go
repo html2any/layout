@@ -8,6 +8,8 @@ func RenderTo(c *Block, render Render, from_x, from_y float64) (Rect, error) {
 	rbackground := addY(background, c.Top)
 	if c.parent != nil && c.BackgroundColor != c.parent.BackgroundColor && c.BackgroundColor.A != 0 {
 		render.Fill(c.BackgroundColor, rbackground)
+	} else if c.parent == nil {
+		render.Fill(c.BackgroundColor, rbackground)
 	}
 	if len(c.BackgroundImage) > 0 {
 		if err := render.Image(c.BackgroundImage, rbackground); err != nil {
