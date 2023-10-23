@@ -118,7 +118,7 @@ border-[top|right|bottom|left]-style
 3. You can define your own impliment.
 
 ## Performance
-1. Html parser is faster than `json.Unmarshal`
+1. Html parser is faster than `json.Unmarshal` [parser](https://github.com/html2any/parser)
 2. Recursive calculation is almost the same as stack. I chose to use recursion, which is better understood.
 3. The calculation of text lines will take some time.
 4. Rendering to pdf or image is fast enough
