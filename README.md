@@ -1,6 +1,6 @@
 # Layout Engine for HTML(css support)
 
-A **Layout Engine** for HTML with limited CSS support, implemented in pure Go. This layout engine allows you to set the page width and then  automatically computes the height and width of children elements, taking into account the margin, padding, and border to achieve accurate layouts. Additionally, it provides a split page method that helps you convert HTML to PDF with line break support.
+A **Layout Engine** for HTML with limited CSS support, implemented in pure Go. This project was written with the help of a large language model. This layout engine allows you to set the page width and then  automatically computes the height and width of children elements, taking into account the margin, padding, and border to achieve accurate layouts. Additionally, it provides a split page method that helps you convert HTML to PDF with line break support.
 
 ## Installation
 
@@ -118,7 +118,7 @@ border-[top|right|bottom|left]-style
 3. You can define your own impliment.
 
 ## Performance
-1. Html parser is faster than `json.Unmarshal`
+1. Html parser is faster than `json.Unmarshal` [parser](https://github.com/html2any/parser)
 2. Recursive calculation is almost the same as stack. I chose to use recursion, which is better understood.
 3. The calculation of text lines will take some time.
 4. Rendering to pdf or image is fast enough
