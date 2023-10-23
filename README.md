@@ -1,6 +1,6 @@
 # Layout Engine for HTML(css support)
 
-A **Layout Engine** for HTML with limited CSS support, implemented in pure Go. This layout engine allows you to set the page width and then  automatically computes the height and width of children elements, taking into account the margin, padding, and border to achieve accurate layouts. Additionally, it provides a split page method that helps you convert HTML to PDF with line break support.
+A **Layout Engine** for HTML with limited CSS support, implemented in pure Go. This project was written with the help of a large language model. This layout engine allows you to set the page width and then  automatically computes the height and width of children elements, taking into account the margin, padding, and border to achieve accurate layouts. Additionally, it provides a split page method that helps you convert HTML to PDF with line break support.
 
 ## Installation
 
