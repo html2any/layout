@@ -67,25 +67,35 @@ func main() {
 	format := os.Args[1]
 	// loadFonts and CacheAll
 	fontcache := loadFonts()
-	textspliter := fonts.NewSFNT(fontcache)
-	if _, err := textspliter.CacheAll(); err != nil {
+	sfnt := fonts.NewSFNT(fontcache)
+	if _, err := sfnt.CacheAll(); err != nil {
 		panic(err)
 	}
 	// init render
 	render := initRender(format, fontcache)
-
 	// load html
 	root := parseHTML2Block()
-
-	_, err := layout.CacuHeight(root, layout.A4_Width, "NotoSansSC", textspliter)
-	if err != nil {
-		panic(err)
-	}
 	if format == "img" {
+		_, err := layout.CacuHeight(root, layout.A4_Width, "NotoSansSC", NewLayout(sfnt))
+		if err != nil {
+			panic(err)
+		}
 		render.(*ImageRender).NewCanvas(root.Width, root.Height+root.Top)
 		layout.RenderTo(root, render, 0, 0)
 		out := render.GetData()
 		os.WriteFile("out.png", out, 0644)
+	} else if format == "pdf" {
+		if _, pages, err := layout.CacuPages(root, layout.A4_Width, "NotoSansSC", NewLayout(sfnt)); err != nil {
+			panic(err)
+		} else {
+			pdf_render := render.(*PdfRender)
+			for _, page := range pages {
+				pdf_render.pdf.AddPage()
+				layout.RenderTo(page, pdf_render, 0, 0)
+			}
+			out := render.GetData()
+			os.WriteFile("out.pdf", out, 0644)
+		}
 	}
 }
 ```

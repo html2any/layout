@@ -28,15 +28,14 @@ func SplitPages(c *Block, page_height float64) (pages []*Block, err error) {
 }
 
 func CacuPages(c *Block, width float64, gFamily string, ilayout ILayout) (height float64, pages []*Block, err error) {
-	preSetHeight := c.Height
 	if _, err := CacuHeight(c, width, gFamily, ilayout); err != nil {
 		return 0, nil, err
 	}
-	if preSetHeight <= 0 {
-		slog.Warn("block height is ", preSetHeight, ",Should Set Height for Page. Now Going to flow mode")
+	if c.OriginHeight <= 0 {
+		slog.Warn("block height is ", c.OriginHeight, ",Should Set Height for Page. Now Going to flow mode")
 		return c.Height, []*Block{c}, nil
 	}
-	pages, err = SplitPages(c, preSetHeight)
+	pages, err = SplitPages(c, c.OriginHeight)
 	return
 }
 

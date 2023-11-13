@@ -108,3 +108,10 @@ func (t *Block) NewTag() parser.IHtmlTag {
 	ntag.Style = *NewStyle()
 	return ntag
 }
+
+func (t *Block) GetBlockByID(ID string) *Block {
+	if block, ok := t.g.idMap[ID]; ok {
+		return block
+	}
+	return nil
+}
